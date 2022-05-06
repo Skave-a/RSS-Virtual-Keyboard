@@ -53,11 +53,19 @@ const Keyboard = {
             "Ctrl", "Fn", "Win", "Alt", "space", "Alt", "Ctrl", "left", "down", "right"
         ];
 
+        const keyLayoutRu = [
+            "ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
+            "tab", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "|",
+            "Caps Lock", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "enter",
+            "shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", "UP", "Shift",
+            "Ctrl", "Fn", "Win", "Alt", "space", "Alt", "Ctrl", "left", "down", "right"
+        ];
+
         const createIconHTML = (icon_name) => {
             return `<i class="material-icons">${icon_name}</i>`;
         };
 
-        keyLayout.forEach(key => {
+        keyLayoutRu.forEach(key => {
             const keyElement = document.createElement("button");
 
             const insertLineBreak = ["backspace", "|", "enter", "Shift"].indexOf(key) !== -1;
