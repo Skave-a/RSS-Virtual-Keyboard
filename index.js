@@ -45,13 +45,13 @@ const Keyboard = {
 
     _createKeys() {
         const fragment = document.createDocumentFragment();
-        const keyLayout = [
-            "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
-            "tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "|",
-            "Caps Lock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter",
-            "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?", "UP", "Shift",
-            "Ctrl", "Fn", "Win", "Alt", "space", "Alt", "Ctrl", "left", "down", "right"
-        ];
+        // const keyLayout = [
+        //     "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
+        //     "tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "|",
+        //     "Caps Lock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter",
+        //     "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?", "UP", "Shift",
+        //     "Ctrl", "Fn", "Win", "Alt", "space", "Alt", "Ctrl", "left", "down", "right"
+        // ];
 
         const keyLayoutRu = [
             "ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
@@ -128,6 +128,13 @@ const Keyboard = {
                         this._triggerEvent("oninput");
                     });
 
+                    keyElement.addEventListener("keydown", () => {
+                        keyElement.classList.add('active');
+                    });
+                    keyElement.addEventListener("keyup", () => {
+                        this.classList.remove('active');
+                    });
+
                     break;
 
                 case "shift":
@@ -150,6 +157,8 @@ const Keyboard = {
                 case "UP":
                     keyElement.classList.add("keyboard__key--narrow");
                     keyElement.innerHTML = createIconHTML("arrow_upward");
+
+
 
                     break;
 
@@ -204,6 +213,7 @@ const Keyboard = {
         return fragment;
     },
 
+
     _triggerEvent(handlerName) {
         if (typeof this.eventHandlers[handlerName] == "function") {
             this.eventHandlers[handlerName](this.properties.value);
@@ -237,6 +247,50 @@ const Keyboard = {
 
 
 
+document.querySelector('.use-keyboard-input').onkeydown = function (event) {
+    switch (event.key) {
+        case "ArrowUp":
+            document.querySelector('.keyboard__key--narrow').classList.add('active');
+            break;
+
+        case " ":
+            document.querySelector('.keyboard__key--extra-wide').classList.add('active');
+            break;
+
+        case "Shift":
+            document.querySelector('.keyboard__key--wide--shift').classList.add('active');
+            break;
+
+        case "Control":
+            document.querySelector('.keyboard__key--wide--ctrl').classList.add('active');
+            break;
+
+        case event.key:
+            event.key.classList.add('active');
+            break;
+
+    }
+}
+
+document.querySelector('.use-keyboard-input').onkeyup = function (event) {
+    switch (event.key) {
+        case "ArrowUp":
+            document.querySelector('.keyboard__key--narrow').classList.remove('active');
+            break;
+
+        case " ":
+            document.querySelector('.keyboard__key--extra-wide').classList.remove('active');
+            break;
+
+        case "Shift":
+            document.querySelector('.keyboard__key--wide--shift').classList.remove('active');
+            break;
+
+        case "Control":
+            document.querySelector('.keyboard__key--wide--ctrl').classList.remove('active');
+            break;
+    }
+}
 
 window.addEventListener("DOMContentLoaded", function () {
     Keyboard.init();
